@@ -21,7 +21,42 @@ android {
 }
 
 dependencies {
-    compile project(':emoji')
+    implementation project(':emoji')
+    implementation rootProject.ext.supportAppCompat
+    implementation rootProject.ext.supportAnnotations
 }
 
-apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+//apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+
+
+apply plugin: 'maven'
+
+uploadArchives {
+    repositories.mavenDeployer {
+
+        // 私有仓库的地址，以及账户
+        repository(url: "http://10.10.60.234:8081/repository/maven-releases/") {
+            authentication(userName: 'android', password: 'android')
+        }
+
+        pom.project {
+            version "0.5.1-reduce-01"
+            artifactId "com.vanniktech-emoji-ios"
+            groupId "hb"
+            packaging 'aar'
+        }
+    }
+}
+
+//以下代码会生成jar包源文件，如果是不开源码，请不要输入这段
+//aar包内包含注释
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.source
+}
+
+
+artifacts {
+    archives androidSourcesJar
+//    archives androidJavadocsJar
+}

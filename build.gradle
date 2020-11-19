@@ -1,15 +1,15 @@
-apply plugin: 'com.github.ben-manes.versions'
-apply plugin: 'com.vanniktech.code.quality.tools'
-apply plugin: 'com.vanniktech.android.junit.jacoco'
-
-codeQualityTools {
-  checkstyle {
-    toolVersion = '7.8.2'
-  }
-  pmd {
-    toolVersion = '5.8.0'
-  }
-}
+//apply plugin: 'com.github.ben-manes.versions'
+//apply plugin: 'com.vanniktech.code.quality.tools'
+//apply plugin: 'com.vanniktech.android.junit.jacoco'
+//
+//codeQualityTools {
+//  checkstyle {
+//    toolVersion = '7.8.2'
+//  }
+//  pmd {
+//    toolVersion = '5.8.0'
+//  }
+//}
 
 buildscript {
     ext.versions = [
@@ -35,24 +35,25 @@ buildscript {
         maven { url 'https://plugins.gradle.org/m2/' }
     }
     dependencies {
-        classpath 'com.vanniktech:gradle-code-quality-tools-plugin:0.4.0'
-        classpath 'com.vanniktech:gradle-android-junit-jacoco-plugin:0.6.0'
+//        classpath 'com.vanniktech:gradle-code-quality-tools-plugin:0.4.0'
+//        classpath 'com.vanniktech:gradle-android-junit-jacoco-plugin:0.6.0'
 
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.4.1'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
         classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.0.10'
     }
 }
 
-codeQualityTools {
-    lint {
-        textReport true
-    }
-}
+//codeQualityTools {
+//    lint {
+//        textReport true
+//    }
+//}
 
-junitJacoco {
-    ignoreProjects = ['app', 'emoji-ios', 'emoji-google', 'emoji-twitter', 'emoji-one'] // Don't care about sample and generated modules
-}
+//junitJacoco {
+//    ignoreProjects = ['app', 'emoji', 'emoji-ios', 'emoji-google', 'emoji-twitter', 'emoji-one'] //
+//    // Don't care about sample and generated modules
+//}
 
 subprojects {
     repositories {
@@ -63,20 +64,20 @@ subprojects {
     group = GROUP
     version = VERSION_NAME
 
-    plugins.apply('net.ltgt.errorprone')
-
-    configurations.errorprone {
-        resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.0.20'
-    }
+//    plugins.apply('net.ltgt.errorprone')
+//
+//    configurations.errorprone {
+//        resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.0.20'
+//    }
 }
 
 ext {
     minSdkVersion = 15
-    compileSdkVersion = 25
-    targetSdkVersion = 25
-    buildToolsVersion = '25.0.3'
+    compileSdkVersion = 28
+    targetSdkVersion = 28
+    buildToolsVersion = '28.0.3'
 
-    supportLibraryVersion = '25.4.0'
+    supportLibraryVersion = '28.0.0'
     leakCanaryVersion = '1.5.1'
 
     versionCode = VERSION_CODE
@@ -103,7 +104,7 @@ ext {
     javaVersion = JavaVersion.VERSION_1_7
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.0'
+wrapper {
+    gradleVersion = '5.4.1'
     distributionType = Wrapper.DistributionType.ALL
 }
